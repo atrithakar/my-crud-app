@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>HomePage</title>
+
+{% endblock %}
+{% block body %} 
+
+<h1>Hello, World!</h1>
+<a href="/about">about</a>
+
+<div class="content">
+    {% if tasks | length < 1 %}
+    <h3>No Tasks.. Create Here...</h3>
+    {% else %}
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <!-- <th>Finished or not</th> -->
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{task.title}}</td>
+            <td>{{task.description}}</td>
+            <!-- <td>{{task.done}}</td> -->
+            <td><a href="/delete/{{task.id}}">Delete</a><br><a href="/edit/{{task.id}}">Edit</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <form action="/" method="POST">
+        <input type="text" name="title" id="title" placeholder="Enter task title" required>
+        <input type="text" name="description" id="description" placeholder="Enter task description" required>
+        <input type="submit" value="Add Task" id="btn_add">
+    </form>
+</div>
+
+{% endblock %}
